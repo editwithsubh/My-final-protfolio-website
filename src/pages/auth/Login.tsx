@@ -85,12 +85,6 @@ const Login = () => {
         </CardContent>
         <CardFooter className="flex flex-col space-y-4">
           <div className="text-sm text-gray-500 text-center">
-            Don't have an account?{' '}
-            <Link to="/signup" className="text-gray-900 font-semibold hover:underline">
-              Sign up
-            </Link>
-          </div>
-          <div className="text-sm text-gray-500 text-center">
             <Link to="/" className="text-blue-600 hover:underline">
               &larr; Back to Website
             </Link>

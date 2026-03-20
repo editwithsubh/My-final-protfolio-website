@@ -21,7 +21,6 @@ import ResourceList from "./pages/admin/ResourceList.tsx";
 import CreateResource from "./pages/admin/CreateResource.tsx";
 import ManagePortfolio from "./pages/admin/ManagePortfolio.tsx";
 import Login from "./pages/auth/Login.tsx";
-import Signup from "./pages/auth/Signup.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute.tsx";
 
@@ -59,7 +58,6 @@ const App = () => (
 
             {/* Auth Routes */}
             <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
 
             {/* Admin Dashboard Routes (Protected) */}
             <Route path="/admin" element={<ProtectedRoute />}>
