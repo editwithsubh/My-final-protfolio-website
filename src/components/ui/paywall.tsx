@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Lock, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
@@ -18,6 +18,18 @@ export const Paywall = ({ price, resourceId, onUnlocked }: PaywallProps) => {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    // Dynamically inject the Razorpay checkout script
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.async = true;
+    document.body.appendChild(script);
+    
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   const handlePurchase = async () => {
     if (!user) {
       toast.error('Please log in to purchase this content.');
@@ -26,27 +38,78 @@ export const Paywall = ({ price, resourceId, onUnlocked }: PaywallProps) => {
     }
 
     setLoading(true);
-    
-    // Simulate purchase by inserting into `purchases` table
-    const { error } = await supabase.from('purchases').insert([
-      {
-        user_id: user.id,
-        resource_id: resourceId,
-      }
-    ]);
+    toast('Initializing secure checkout...');
 
-    setLoading(false);
+    try {
+      // 1. Fetch Order ID from Local Backend
+      const res = await fetch('http://localhost:5000/create-order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ amount: Number(price) }),
+      });
 
-    if (error) {
-      if (error.code === '23505') { // Postgres Unique Violation code
-        toast.info('You already own this item!');
-        onUnlocked();
-      } else {
-        toast.error('Failed to unlock content: ' + error.message);
+      if (!res.ok) {
+        throw new Error('Could not establish secure connection to payment gateway.');
       }
-    } else {
-      toast.success('Successfully purchased and unlocked!');
-      onUnlocked();
+
+      const order = await res.json();
+
+      // 2. Open Razorpay Interface
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_placeholder', // Setup env var locally
+        amount: order.amount,
+        currency: order.currency,
+        name: 'Premium Resource',
+        description: 'Unlock premium content forever',
+        order_id: order.id,
+        handler: async function (response: any) {
+          // 3. Payment Success Callback -> Fulfill the Order
+          toast.success('Payment processed! Unlocking resource...');
+
+          const { error } = await supabase.from('purchases').insert([
+            {
+              user_id: user.id,
+              resource_id: resourceId,
+            }
+          ]);
+
+          if (error) {
+            if (error.code === '23505') {
+              toast.info('You already own this item!');
+              onUnlocked();
+              navigate('/my-library');
+            } else {
+              toast.error('Failed to register ownership: ' + error.message);
+            }
+          } else {
+            toast.success('Successfully purchased and unlocked!');
+            onUnlocked();
+            navigate('/my-library');
+          }
+        },
+        prefill: {
+          email: user.email,
+        },
+        theme: {
+          color: '#f97316', // Primary Orange Theme
+        },
+      };
+
+      const rzp = new (window as any).Razorpay(options);
+      
+      rzp.on('payment.failed', function (response: any) {
+        toast.error('Payment failed: ' + response.error.description);
+        setLoading(false);
+      });
+
+      rzp.open();
+    } catch (err: any) {
+      toast.error(err.message || 'Payment initialization failed.');
+    } finally {
+      // Setup reset timeout allowing modal to capture screen
+      setTimeout(() => setLoading(false), 2000);
     }
   };
 
@@ -65,9 +128,6 @@ export const Paywall = ({ price, resourceId, onUnlocked }: PaywallProps) => {
         </p>
         
         <div className="flex flex-col w-full gap-3 sm:flex-row sm:items-center sm:justify-center">
-          <div className="text-3xl font-display text-orange mr-2">
-            ${price}
-          </div>
           <Button 
             onClick={handlePurchase} 
             disabled={loading} 
@@ -77,7 +137,7 @@ export const Paywall = ({ price, resourceId, onUnlocked }: PaywallProps) => {
             {loading ? 'Processing...' : (
               <>
                 <CreditCard className="h-5 w-5" />
-                Unlock Now
+                Buy Now — ₹{price}
               </>
             )}
           </Button>
