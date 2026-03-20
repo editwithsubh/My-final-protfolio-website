@@ -19,6 +19,7 @@ import BlogList from "./pages/admin/BlogList.tsx";
 import CreateBlog from "./pages/admin/CreateBlog.tsx";
 import ResourceList from "./pages/admin/ResourceList.tsx";
 import CreateResource from "./pages/admin/CreateResource.tsx";
+import ManagePortfolio from "./pages/admin/ManagePortfolio.tsx";
 
 const queryClient = new QueryClient();
 
@@ -58,6 +59,7 @@ const App = () => (
             <Route path="blog/new" element={<CreateBlog />} />
             <Route path="resources" element={<ResourceList />} />
             <Route path="resource/new" element={<CreateResource />} />
+            <Route path="portfolio" element={<ManagePortfolio />} />
           </Route>
         </Routes>
       </BrowserRouter>

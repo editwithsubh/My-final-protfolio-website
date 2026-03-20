@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { LayoutDashboard, FileText, FolderPlus, LogOut } from 'lucide-react';
+import { LayoutDashboard, FileText, FolderPlus, Video, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const AdminLayout = () => {
@@ -51,6 +51,19 @@ const AdminLayout = () => {
           >
             <FolderPlus className="h-4 w-4" />
             Resources
+          </NavLink>
+          
+          <NavLink
+            to="/admin/portfolio"
+            className={({ isActive }) =>
+              cn(
+                "flex items-center gap-3 px-3 py-2 rounded-md transition-colors text-sm font-medium",
+                isActive ? "bg-gray-100 text-gray-900" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+              )
+            }
+          >
+            <Video className="h-4 w-4" />
+            Portfolio
           </NavLink>
         </nav>
         
