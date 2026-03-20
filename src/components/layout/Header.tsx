@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuth } from "@/context/AuthContext";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -16,6 +17,7 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const { user } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -62,6 +64,22 @@ const Header = () => {
                   {link.label}
                 </Link>
               ))}
+              {user && (
+                <Link
+                  to="/my-library"
+                  className={`relative text-sm font-body font-bold transition-colors duration-200 hover:text-orange ${
+                    location.pathname === "/my-library" ? "text-orange" : "text-off-white"
+                  }`}
+                >
+                  {location.pathname === "/my-library" && (
+                    <motion.span
+                      layoutId="nav-dot"
+                      className="absolute -top-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-orange"
+                    />
+                  )}
+                  My Library
+                </Link>
+              )}
             </nav>
 
             {/* Hire Me CTA */}
@@ -112,6 +130,24 @@ const Header = () => {
                   </Link>
                 </motion.div>
               ))}
+              
+              {user && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: navLinks.length * 0.08, duration: 0.4 }}
+                >
+                  <Link
+                    to="/my-library"
+                    className={`font-display text-4xl md:text-5xl tracking-wider transition-colors ${
+                      location.pathname === "/my-library" ? "text-orange" : "text-off-white hover:text-orange"
+                    }`}
+                  >
+                    My Library
+                  </Link>
+                </motion.div>
+              )}
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}

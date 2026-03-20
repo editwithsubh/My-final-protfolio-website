@@ -22,9 +22,11 @@ import ResourceList from "./pages/admin/ResourceList.tsx";
 import CreateResource from "./pages/admin/CreateResource.tsx";
 import ManagePortfolio from "./pages/admin/ManagePortfolio.tsx";
 import ResourceDetail from "./pages/ResourceDetail.tsx";
+import MyLibrary from "./pages/MyLibrary.tsx";
 import Login from "./pages/auth/Login.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute.tsx";
+import { UserRoute } from "./components/auth/UserRoute.tsx";
 
 const queryClient = new QueryClient();
 
@@ -58,6 +60,11 @@ const App = () => (
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="*" element={<NotFound />} />
+              
+              {/* Authenticated User Library Route */}
+              <Route element={<UserRoute />}>
+                <Route path="/my-library" element={<MyLibrary />} />
+              </Route>
             </Route>
 
             {/* Auth Routes */}
