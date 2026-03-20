@@ -20,6 +20,10 @@ import CreateBlog from "./pages/admin/CreateBlog.tsx";
 import ResourceList from "./pages/admin/ResourceList.tsx";
 import CreateResource from "./pages/admin/CreateResource.tsx";
 import ManagePortfolio from "./pages/admin/ManagePortfolio.tsx";
+import Login from "./pages/auth/Login.tsx";
+import Signup from "./pages/auth/Signup.tsx";
+import { AuthProvider } from "./context/AuthContext.tsx";
+import { ProtectedRoute } from "./components/auth/ProtectedRoute.tsx";
 
 const queryClient = new QueryClient();
 
@@ -38,31 +42,39 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <Routes>
-          {/* Public Routes */}
-          <Route element={<PublicLayout />}>
-            <Route path="/" element={<Index />} />
-            <Route path="/portfolio" element={<Portfolio />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/resources" element={<Resources />} />
-            <Route path="/admin-auth" element={<Admin />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="*" element={<NotFound />} />
-          </Route>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            {/* Public Routes */}
+            <Route element={<PublicLayout />}>
+              <Route path="/" element={<Index />} />
+              <Route path="/portfolio" element={<Portfolio />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/resources" element={<Resources />} />
+              <Route path="/admin-auth" element={<Admin />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
 
-          {/* Admin Dashboard Routes */}
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<AdminDashboard />} />
-            <Route path="blogs" element={<BlogList />} />
-            <Route path="blog/new" element={<CreateBlog />} />
-            <Route path="resources" element={<ResourceList />} />
-            <Route path="resource/new" element={<CreateResource />} />
-            <Route path="portfolio" element={<ManagePortfolio />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+            {/* Auth Routes */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+
+            {/* Admin Dashboard Routes (Protected) */}
+            <Route path="/admin" element={<ProtectedRoute />}>
+              <Route element={<AdminLayout />}>
+                <Route index element={<AdminDashboard />} />
+                <Route path="blogs" element={<BlogList />} />
+                <Route path="blog/new" element={<CreateBlog />} />
+                <Route path="resources" element={<ResourceList />} />
+                <Route path="resource/new" element={<CreateResource />} />
+                <Route path="portfolio" element={<ManagePortfolio />} />
+              </Route>
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

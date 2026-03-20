@@ -2,8 +2,18 @@ import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { LayoutDashboard, FileText, FolderPlus, Video, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const AdminLayout = () => {
+  const { signOut, user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await signOut();
+    navigate('/login');
+  };
+
   return (
     <div className="flex h-screen bg-gray-50/50">
       {/* Sidebar */}
@@ -68,13 +78,16 @@ const AdminLayout = () => {
         </nav>
         
         <div className="p-4 border-t">
-          <NavLink
-            to="/"
-            className="flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
+          <div className="mb-4 text-xs font-medium text-gray-500 px-3 truncate">
+            {user?.email}
+          </div>
+          <button 
+            onClick={handleLogout}
+            className="flex items-center gap-3 px-3 py-2 w-full text-left rounded-md transition-colors text-sm font-medium text-red-600 hover:bg-red-50"
           >
             <LogOut className="h-4 w-4" />
-            Exit Admin
-          </NavLink>
+            Logout
+          </button>
         </div>
       </aside>
 
