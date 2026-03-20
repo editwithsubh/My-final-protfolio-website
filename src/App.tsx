@@ -12,6 +12,7 @@ import Contact from "./pages/Contact.tsx";
 import Resources from "./pages/Resources.tsx";
 import Admin from "./pages/Admin.tsx";
 import Blog from "./pages/Blog.tsx";
+import BlogPost from "./pages/BlogPost.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import AdminLayout from "./components/layout/AdminLayout.tsx";
 import AdminDashboard from "./pages/admin/AdminDashboard.tsx";
@@ -20,6 +21,7 @@ import CreateBlog from "./pages/admin/CreateBlog.tsx";
 import ResourceList from "./pages/admin/ResourceList.tsx";
 import CreateResource from "./pages/admin/CreateResource.tsx";
 import ManagePortfolio from "./pages/admin/ManagePortfolio.tsx";
+import ResourceDetail from "./pages/ResourceDetail.tsx";
 import Login from "./pages/auth/Login.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute.tsx";
@@ -51,8 +53,10 @@ const App = () => (
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/resources" element={<Resources />} />
+              <Route path="/resources/:id" element={<ResourceDetail />} />
               <Route path="/admin-auth" element={<Admin />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="*" element={<NotFound />} />
             </Route>
 
