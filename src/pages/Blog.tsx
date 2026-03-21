@@ -65,7 +65,7 @@ const Blog = () => {
                     <div className="aspect-video bg-near-black rounded-xl overflow-hidden relative">
                       <div className="absolute inset-0 grid-paper opacity-10" />
                       {post.is_paid && (
-                        <span className="absolute top-3 left-3 px-3 py-1 bg-yellow-500 text-black text-xs font-bold uppercase rounded z-10">
+                        <span className="absolute top-3 left-3 px-3 py-1 bg-brutal-yellow text-foreground border-2 border-foreground shadow-[2px_2px_0px_0px_hsl(var(--foreground))] text-xs font-bold uppercase rounded z-10">
                           Premium
                         </span>
                       )}

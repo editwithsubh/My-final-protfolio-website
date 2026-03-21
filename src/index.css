@@ -5,48 +5,51 @@
 @layer base {
   :root {
     /* Brand Colors */
-    --orange: 18 96% 60%;
-    --orange-light: 18 100% 67%;
-    --orange-dark: 14 93% 48%;
-    --yellow-highlight: 54 90% 61%;
-    --deep-black: 215 21% 7%;
-    --off-white: 40 14% 95%;
-    --near-black: 215 19% 10%;
-    --dark-gray: 215 14% 18%;
-    --mid-gray: 215 8% 46%;
-    --light-gray: 40 8% 90%;
-    --grid-line: 40 10% 85%;
+    --orange: 20 100% 55%;
+    --orange-light: 20 100% 65%;
+    --orange-dark: 20 100% 45%;
+    --yellow-highlight: 45 100% 55%;
+    --deep-black: 225 40% 12%; /* Replaced with Deep Navy */
+    --off-white: 45 30% 97%;
+    --near-black: 225 35% 16%; /* Muted Navy */
+    --dark-gray: 225 25% 25%;
+    --mid-gray: 225 10% 50%;
+    --light-gray: 225 20% 92%;
+    --grid-line: 225 15% 85%;
+    --brutal-teal: 170 80% 45%;
+    --brutal-blue: 210 100% 60%;
+    --brutal-yellow: 45 100% 55%;
 
     /* Semantic tokens */
-    --background: 40 14% 95%;
-    --foreground: 215 21% 7%;
-    --card: 215 19% 10%;
-    --card-foreground: 0 0% 96%;
-    --popover: 215 19% 10%;
-    --popover-foreground: 0 0% 96%;
-    --primary: 18 96% 60%;
+    --background: 45 30% 97%;
+    --foreground: 225 40% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 225 40% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 225 40% 12%;
+    --primary: 20 100% 55%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 215 14% 18%;
-    --secondary-foreground: 0 0% 96%;
-    --muted: 215 14% 18%;
-    --muted-foreground: 215 8% 46%;
-    --accent: 18 96% 60%;
-    --accent-foreground: 0 0% 100%;
+    --secondary: 225 20% 92%;
+    --secondary-foreground: 225 40% 12%;
+    --muted: 225 20% 92%;
+    --muted-foreground: 225 10% 50%;
+    --accent: 45 100% 55%; /* Accent is Yellow */
+    --accent-foreground: 225 40% 12%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
-    --border: 215 14% 18%;
-    --input: 215 14% 18%;
-    --ring: 18 96% 60%;
-    --radius: 0.75rem;
+    --border: 225 40% 12%; /* Thick dark borders */
+    --input: 225 40% 12%;
+    --ring: 20 100% 55%;
+    --radius: 0.5rem; /* Slightly sharper playful corners */
 
-    --sidebar-background: 215 21% 7%;
+    --sidebar-background: 225 40% 12%;
     --sidebar-foreground: 0 0% 96%;
-    --sidebar-primary: 18 96% 60%;
+    --sidebar-primary: 20 100% 55%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 215 14% 18%;
+    --sidebar-accent: 225 35% 16%;
     --sidebar-accent-foreground: 0 0% 96%;
-    --sidebar-border: 215 14% 18%;
-    --sidebar-ring: 18 96% 60%;
+    --sidebar-border: 225 35% 16%;
+    --sidebar-ring: 20 100% 55%;
   }
 }
 

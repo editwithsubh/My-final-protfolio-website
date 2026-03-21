@@ -31,6 +31,9 @@ export default {
         "mid-gray": "hsl(var(--mid-gray))",
         "light-gray": "hsl(var(--light-gray))",
         "yellow-highlight": "hsl(var(--yellow-highlight))",
+        "brutal-teal": "hsl(var(--brutal-teal))",
+        "brutal-blue": "hsl(var(--brutal-blue))",
+        "brutal-yellow": "hsl(var(--brutal-yellow))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
