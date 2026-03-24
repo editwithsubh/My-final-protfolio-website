@@ -83,10 +83,6 @@ const Blog = () => {
                 </Link>
               </StaggerItem>
             ))}
-                    </div>
-                  </Link>
-                </StaggerItem>
-              ))}
             </StaggerContainer>
           )}
         </div>
