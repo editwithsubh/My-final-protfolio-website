@@ -5,28 +5,35 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PlusCircle, Search, FileText, File, Video, FileArchive } from 'lucide-react';
 import { format } from 'date-fns';
+import { toast } from 'sonner';
 
 const ResourceList = () => {
   const [resources, setResources] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchResources();
-  }, []);
+    let isMounted = true;
 
-  const fetchResources = async () => {
-    const { data, error } = await supabase
-      .from('resources')
-      .select('*')
-      .order('created_at', { ascending: false });
-      
-    if (error) {
-      console.error('Error fetching resources:', error);
-    } else {
-      setResources(data || []);
-    }
-    setLoading(false);
-  };
+    const fetchResources = async () => {
+      const { data, error } = await supabase
+        .from('resources')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (!isMounted) return;
+
+      if (error) {
+        console.error('Error fetching resources:', error);
+        toast.error('Failed to load resources: ' + error.message);
+      } else {
+        setResources(data || []);
+      }
+      setLoading(false);
+    };
+
+    fetchResources();
+    return () => { isMounted = false; };
+  }, []);
 
   const getIconForType = (type: string) => {
     switch (type) {
@@ -75,7 +82,7 @@ const ResourceList = () => {
                     <div>
                       <h3 className="font-semibold text-gray-900">{resource.title}</h3>
                       <p className="text-sm text-gray-500 mt-1 flex gap-4">
-                        <span>{format(new Date(resource.created_at), 'MMM d, yyyy')}</span>
+                        <span>{resource.created_at ? format(new Date(resource.created_at), 'MMM d, yyyy') : 'N/A'}</span>
                         <span>Type: {resource.type}</span>
                         <span className="capitalize">{resource.is_paid ? `Paid ($${resource.price || 0})` : 'Free'}</span>
                       </p>

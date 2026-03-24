@@ -16,17 +16,33 @@ const Resources = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [priceFilter, setPriceFilter] = useState<"all" | "free" | "paid">("all");
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchResources = async () => {
-      const { data } = await supabase
+      const { data, error } = await supabase
         .from("resources")
         .select("*")
         .order("created_at", { ascending: false });
-      if (data) setResources(data);
+
+      if (!isMounted) return;
+
+      if (error) {
+        console.error('Error fetching resources:', error);
+        setError('Failed to load resources. Please try again.');
+      } else {
+        setResources(data || []);
+      }
       setLoading(false);
     };
+
     fetchResources();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // Derive dynamic categories
@@ -96,6 +112,8 @@ const Resources = () => {
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-[120px]">
           {loading ? (
              <div className="text-center text-mid-gray font-body py-12">Loading resources...</div>
+          ) : error ? (
+            <div className="text-center text-red-400 font-body py-12">{error}</div>
           ) : filtered.length === 0 ? (
             <div className="text-center text-mid-gray font-body py-12">No resources found for this filter.</div>
           ) : (

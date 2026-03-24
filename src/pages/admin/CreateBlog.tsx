@@ -47,7 +47,7 @@ const CreateBlog = () => {
           slug,
           content, // Storing HTML or JSON string
           is_paid: isPaid,
-          price: isPaid ? parseFloat(price) : 0,
+          price: isPaid ? (parseFloat(price) || 0) : 0,
         },
       ]);
 
@@ -106,7 +106,7 @@ const CreateBlog = () => {
         </div>
 
         <div className="space-y-2 bg-white p-6 rounded-lg border shadow-sm">
-          <Label>Content Requirements</Label>
+          <Label>Content</Label>
           <RichTextEditor content={content} onChange={setContent} />
         </div>
 

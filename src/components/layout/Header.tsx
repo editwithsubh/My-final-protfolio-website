@@ -52,7 +52,7 @@ const Header = () => {
                   key={link.path}
                   to={link.path}
                   className={`relative text-sm font-body font-medium transition-colors duration-200 hover:text-orange ${
-                    location.pathname === link.path ? "text-orange" : scrolled ? "text-off-white" : "text-off-white"
+                    location.pathname === link.path ? "text-orange" : "text-off-white"
                   }`}
                 >
                   {location.pathname === link.path && (
@@ -151,7 +151,7 @@ const Header = () => {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: navLinks.length * 0.08, duration: 0.4 }}
+                transition={{ delay: (navLinks.length + (user ? 1 : 0)) * 0.08, duration: 0.4 }}
               >
                 <Link
                   to="/contact"
@@ -164,8 +164,8 @@ const Header = () => {
 
             {/* Social links in mobile menu */}
             <div className="absolute bottom-12 flex gap-6">
-              <a href="https://instagram.com/editxshubh" target="_blank" rel="noopener" className="text-mid-gray hover:text-orange transition-colors text-sm font-body">Instagram</a>
-              <a href="https://twitter.com/editxsubh" target="_blank" rel="noopener" className="text-mid-gray hover:text-orange transition-colors text-sm font-body">Twitter</a>
+              <a href="https://instagram.com/editxshubh" target="_blank" rel="noopener noreferrer" className="text-mid-gray hover:text-orange transition-colors text-sm font-body">Instagram</a>
+              <a href="https://twitter.com/editxsubh" target="_blank" rel="noopener noreferrer" className="text-mid-gray hover:text-orange transition-colors text-sm font-body">Twitter</a>
             </div>
           </motion.div>
         )}

@@ -220,9 +220,8 @@ const services = [
     icon: "📱",
     title: "Short-Form Content",
     description: "Scroll-stopping reels, shorts, and TikToks with trending formats and hooks.",
-    tools: ["After Effect", "Premiere Pro"],
-  },
-  {
+    tools: ["After Effects", "Premiere Pro"],
+  },  {
     icon: "✨",
     title: "Motion Graphics",
     description: "Custom animated logos, intros, lower thirds, and visual effects.",

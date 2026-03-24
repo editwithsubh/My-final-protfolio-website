@@ -84,6 +84,10 @@ export const useCounter = (end: number, duration: number = 2000) => {
 
   useEffect(() => {
     if (!isInView) return;
+    if (end <= 0 || duration <= 0) {
+      setCount(Math.max(0, end));
+      return;
+    }
     let start = 0;
     const step = end / (duration / 16);
     const timer = setInterval(() => {

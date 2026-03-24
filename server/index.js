@@ -7,22 +7,29 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Initialize razorpay securely with secret keys
+// Validate required environment variables — fail fast if missing
+const { RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET } = process.env;
+if (!RAZORPAY_KEY_ID || !RAZORPAY_KEY_SECRET) {
+  console.error('FATAL: RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET environment variables must be set.');
+  console.error('Copy server/.env.example to server/.env and fill in your credentials.');
+  process.exit(1);
+}
+
 const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID || 'rzp_test_placeholder',
-  key_secret: process.env.RAZORPAY_KEY_SECRET || 'secret_placeholder'
+  key_id: RAZORPAY_KEY_ID,
+  key_secret: RAZORPAY_KEY_SECRET
 });
 
 app.post('/create-order', async (req, res) => {
   try {
     const { amount } = req.body;
 
-    if (!amount) {
-      return res.status(400).json({ error: 'Amount is required' });
+    if (typeof amount !== 'number' || !Number.isFinite(amount) || amount <= 0) {
+      return res.status(400).json({ error: 'Amount must be a positive number' });
     }
 
     const options = {
-      amount: amount * 100, // Razorpay expects amount in smallest currency subunit (paise)
+      amount: Math.round(amount * 100), // Razorpay expects integer amount in paise
       currency: 'INR',
       receipt: `receipt_${Date.now()}`
     };

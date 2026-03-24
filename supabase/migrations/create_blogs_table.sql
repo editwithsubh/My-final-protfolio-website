@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS public.blogs (
 ALTER TABLE public.blogs ENABLE ROW LEVEL SECURITY;
 
 -- ============================================================
--- RLS Policies
+-- RLS Policies (admin = shubhams6068@gmail.com)
 -- ============================================================
 
 -- Policy 1: Anyone can read FREE blog posts (is_paid = false)
@@ -37,27 +37,27 @@ CREATE POLICY "Authenticated users can read paid blogs"
   TO authenticated
   USING (is_paid = true);
 
--- Policy 3: Admin (authenticated) users can INSERT blogs
-CREATE POLICY "Admins can insert blogs"
+-- Policy 3: Only admin can INSERT blogs
+CREATE POLICY "Admin can insert blogs"
   ON public.blogs
   FOR INSERT
   TO authenticated
-  WITH CHECK (true);
+  WITH CHECK (auth.jwt()->>'email' = 'shubhams6068@gmail.com');
 
--- Policy 4: Admin (authenticated) users can UPDATE blogs
-CREATE POLICY "Admins can update blogs"
+-- Policy 4: Only admin can UPDATE blogs
+CREATE POLICY "Admin can update blogs"
   ON public.blogs
   FOR UPDATE
   TO authenticated
-  USING (true)
-  WITH CHECK (true);
+  USING (auth.jwt()->>'email' = 'shubhams6068@gmail.com')
+  WITH CHECK (auth.jwt()->>'email' = 'shubhams6068@gmail.com');
 
--- Policy 5: Admin (authenticated) users can DELETE blogs
-CREATE POLICY "Admins can delete blogs"
+-- Policy 5: Only admin can DELETE blogs
+CREATE POLICY "Admin can delete blogs"
   ON public.blogs
   FOR DELETE
   TO authenticated
-  USING (true);
+  USING (auth.jwt()->>'email' = 'shubhams6068@gmail.com');
 
 -- ============================================================
 -- Optional: Index on slug for faster lookups (blog detail page)

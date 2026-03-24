@@ -44,17 +44,21 @@ const initialPosts: BlogPost[] = [
 ];
 
 /* ─── Reusable form field ─── */
-const Field = ({ label, value, onChange, placeholder = "" }: { label: string; value: string; onChange: (v: string) => void; placeholder?: string }) => (
+const Field = ({ label, value, onChange, placeholder = "", id }: { label: string; value: string; onChange: (v: string) => void; placeholder?: string; id?: string }) => {
+  const fieldId = id ?? label.toLowerCase().replace(/\s+/g, "-");
+  return (
   <div className="space-y-1">
-    <label className="text-xs font-heading font-semibold text-mid-gray uppercase tracking-wider">{label}</label>
+    <label htmlFor={fieldId} className="text-xs font-heading font-semibold text-mid-gray uppercase tracking-wider">{label}</label>
     <input
+      id={fieldId}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
       className="w-full px-3 py-2 bg-deep-black border border-dark-gray rounded-lg text-off-white text-sm font-body focus:border-orange focus:outline-none transition-colors"
     />
   </div>
-);
+  );
+};
 
 /* ─── Tabs config ─── */
 const tabs = [
@@ -163,7 +167,7 @@ const Admin = () => {
                     </div>
                     <p className="text-xs text-mid-gray mt-1">{r.category} · {r.type}</p>
                   </div>
-                  <button onClick={() => setResources(resources.filter((x) => x.id !== r.id))} className="text-mid-gray hover:text-red-400 transition-colors">
+                  <button onClick={() => setResources(resources.filter((x) => x.id !== r.id))} aria-label="Delete resource" className="text-mid-gray hover:text-red-400 transition-colors">
                     <Trash2 size={16} />
                   </button>
                 </div>

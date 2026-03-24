@@ -5,28 +5,35 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { PlusCircle, Search } from 'lucide-react';
 import { format } from 'date-fns';
+import { toast } from 'sonner';
 
 const BlogList = () => {
   const [blogs, setBlogs] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchBlogs();
-  }, []);
+    let isMounted = true;
 
-  const fetchBlogs = async () => {
-    const { data, error } = await supabase
-      .from('blogs')
-      .select('*')
-      .order('created_at', { ascending: false });
-      
-    if (error) {
-      console.error('Error fetching blogs:', error);
-    } else {
-      setBlogs(data || []);
-    }
-    setLoading(false);
-  };
+    const fetchBlogs = async () => {
+      const { data, error } = await supabase
+        .from('blogs')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (!isMounted) return;
+
+      if (error) {
+        console.error('Error fetching blogs:', error);
+        toast.error('Failed to load blogs: ' + error.message);
+      } else {
+        setBlogs(data || []);
+      }
+      setLoading(false);
+    };
+
+    fetchBlogs();
+    return () => { isMounted = false; };
+  }, []);
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
@@ -62,7 +69,7 @@ const BlogList = () => {
                   <div>
                     <h3 className="font-semibold text-gray-900">{blog.title}</h3>
                     <p className="text-sm text-gray-500 mt-1 flex gap-4">
-                      <span>{format(new Date(blog.created_at), 'MMM d, yyyy')}</span>
+                      <span>{blog.created_at ? format(new Date(blog.created_at), 'MMM d, yyyy') : 'N/A'}</span>
                       <span>Slug: /{blog.slug}</span>
                       <span className="capitalize">{blog.is_paid ? `Paid ($${blog.price || 0})` : 'Free'}</span>
                     </p>

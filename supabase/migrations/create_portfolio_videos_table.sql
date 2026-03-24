@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS public.portfolio_videos (
 ALTER TABLE public.portfolio_videos ENABLE ROW LEVEL SECURITY;
 
 -- ============================================================
--- RLS Policies
+-- RLS Policies (admin = shubhams6068@gmail.com)
 -- ============================================================
 
 -- Policy 1: Anyone (anon + authenticated) can view all portfolio videos
@@ -30,27 +30,27 @@ CREATE POLICY "Public can view all portfolio videos"
   FOR SELECT
   USING (true);
 
--- Policy 2: Authenticated users can INSERT portfolio videos
-CREATE POLICY "Admins can insert portfolio videos"
+-- Policy 2: Only admin can INSERT portfolio videos
+CREATE POLICY "Admin can insert portfolio videos"
   ON public.portfolio_videos
   FOR INSERT
   TO authenticated
-  WITH CHECK (true);
+  WITH CHECK (auth.jwt()->>'email' = 'shubhams6068@gmail.com');
 
--- Policy 3: Authenticated users can UPDATE portfolio videos
-CREATE POLICY "Admins can update portfolio videos"
+-- Policy 3: Only admin can UPDATE portfolio videos
+CREATE POLICY "Admin can update portfolio videos"
   ON public.portfolio_videos
   FOR UPDATE
   TO authenticated
-  USING (true)
-  WITH CHECK (true);
+  USING (auth.jwt()->>'email' = 'shubhams6068@gmail.com')
+  WITH CHECK (auth.jwt()->>'email' = 'shubhams6068@gmail.com');
 
--- Policy 4: Authenticated users can DELETE portfolio videos
-CREATE POLICY "Admins can delete portfolio videos"
+-- Policy 4: Only admin can DELETE portfolio videos
+CREATE POLICY "Admin can delete portfolio videos"
   ON public.portfolio_videos
   FOR DELETE
   TO authenticated
-  USING (true);
+  USING (auth.jwt()->>'email' = 'shubhams6068@gmail.com');
 
 -- ============================================================
 -- Index for faster ordering on the portfolio page
@@ -68,19 +68,19 @@ VALUES
     'Learn how to create a cinematic look for your videos using DaVinci Resolve.',
     'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     'dQw4w9WgXcQ',
-    'Web Development'
+    'YouTube'
   ),
   (
     'Professional Video Editing Workflow',
     'My complete editing workflow from raw footage to final export.',
     'https://www.youtube.com/watch?v=jNQXAC9IVRw',
     'jNQXAC9IVRw',
-    'UI/UX Design'
+    'Color Grading'
   ),
   (
     'Mobile App UI Design Breakdown',
     'Breaking down a sleek mobile app design and explaining the thought process.',
     'https://www.youtube.com/watch?v=9bZkp7q19f0',
     '9bZkp7q19f0',
-    'Mobile App'
+    'Motion Graphics'
   );

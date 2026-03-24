@@ -20,8 +20,8 @@ const Marquee = () => {
   ));
 
   return (
-    <div className="w-full bg-deep-black py-4 overflow-hidden border-y border-dark-gray">
-      <div className="flex animate-marquee" style={{ width: "max-content" }}>
+    <div className="w-full bg-deep-black py-4 overflow-hidden border-y border-dark-gray" aria-hidden="true">
+      <div className="flex motion-safe:animate-marquee" style={{ width: "max-content" }}>
         <div className="flex items-center gap-8 pr-8">
           {content}
         </div>

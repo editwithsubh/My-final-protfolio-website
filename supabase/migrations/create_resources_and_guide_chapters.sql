@@ -31,27 +31,27 @@ CREATE POLICY "Public can view all resources"
   FOR SELECT
   USING (true);
 
--- Authenticated users can INSERT
-CREATE POLICY "Admins can insert resources"
+-- Only admin can INSERT
+CREATE POLICY "Admin can insert resources"
   ON public.resources
   FOR INSERT
   TO authenticated
-  WITH CHECK (true);
+  WITH CHECK (auth.jwt()->>'email' = 'shubhams6068@gmail.com');
 
--- Authenticated users can UPDATE
-CREATE POLICY "Admins can update resources"
+-- Only admin can UPDATE
+CREATE POLICY "Admin can update resources"
   ON public.resources
   FOR UPDATE
   TO authenticated
-  USING (true)
-  WITH CHECK (true);
+  USING (auth.jwt()->>'email' = 'shubhams6068@gmail.com')
+  WITH CHECK (auth.jwt()->>'email' = 'shubhams6068@gmail.com');
 
--- Authenticated users can DELETE
-CREATE POLICY "Admins can delete resources"
+-- Only admin can DELETE
+CREATE POLICY "Admin can delete resources"
   ON public.resources
   FOR DELETE
   TO authenticated
-  USING (true);
+  USING (auth.jwt()->>'email' = 'shubhams6068@gmail.com');
 
 -- Index for faster ordering
 CREATE INDEX IF NOT EXISTS idx_resources_created_at
@@ -79,25 +79,25 @@ CREATE POLICY "Public can view all guide chapters"
   FOR SELECT
   USING (true);
 
--- Authenticated users can manage chapters
-CREATE POLICY "Admins can insert guide chapters"
+-- Only admin can manage chapters
+CREATE POLICY "Admin can insert guide chapters"
   ON public.guide_chapters
   FOR INSERT
   TO authenticated
-  WITH CHECK (true);
+  WITH CHECK (auth.jwt()->>'email' = 'shubhams6068@gmail.com');
 
-CREATE POLICY "Admins can update guide chapters"
+CREATE POLICY "Admin can update guide chapters"
   ON public.guide_chapters
   FOR UPDATE
   TO authenticated
-  USING (true)
-  WITH CHECK (true);
+  USING (auth.jwt()->>'email' = 'shubhams6068@gmail.com')
+  WITH CHECK (auth.jwt()->>'email' = 'shubhams6068@gmail.com');
 
-CREATE POLICY "Admins can delete guide chapters"
+CREATE POLICY "Admin can delete guide chapters"
   ON public.guide_chapters
   FOR DELETE
   TO authenticated
-  USING (true);
+  USING (auth.jwt()->>'email' = 'shubhams6068@gmail.com');
 
 -- Indexes for guide reader performance
 CREATE INDEX IF NOT EXISTS idx_guide_chapters_resource_id
@@ -109,7 +109,6 @@ CREATE INDEX IF NOT EXISTS idx_guide_chapters_order
 -- PART C — Storage bucket RLS policies
 -- (Run AFTER creating the "resources" bucket in the Dashboard)
 -- ============================================================
--- These policies go on the storage.objects table for the 'resources' bucket.
 
 -- Anyone can read/download files from the resources bucket
 CREATE POLICY "Public can read resource files"
@@ -117,23 +116,23 @@ CREATE POLICY "Public can read resource files"
   FOR SELECT
   USING (bucket_id = 'resources');
 
--- Authenticated users can upload files
-CREATE POLICY "Admins can upload resource files"
+-- Only admin can upload files
+CREATE POLICY "Admin can upload resource files"
   ON storage.objects
   FOR INSERT
   TO authenticated
-  WITH CHECK (bucket_id = 'resources');
+  WITH CHECK (bucket_id = 'resources' AND auth.jwt()->>'email' = 'shubhams6068@gmail.com');
 
--- Authenticated users can update files
-CREATE POLICY "Admins can update resource files"
+-- Only admin can update files
+CREATE POLICY "Admin can update resource files"
   ON storage.objects
   FOR UPDATE
   TO authenticated
-  USING (bucket_id = 'resources');
+  USING (bucket_id = 'resources' AND auth.jwt()->>'email' = 'shubhams6068@gmail.com');
 
--- Authenticated users can delete files
-CREATE POLICY "Admins can delete resource files"
+-- Only admin can delete files
+CREATE POLICY "Admin can delete resource files"
   ON storage.objects
   FOR DELETE
   TO authenticated
-  USING (bucket_id = 'resources');
+  USING (bucket_id = 'resources' AND auth.jwt()->>'email' = 'shubhams6068@gmail.com');

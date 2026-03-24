@@ -15,7 +15,7 @@ const AdminDashboard = () => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Blogs</CardTitle>
-            <FileText className="h-4 w-4 text-gray-500" />
+            <FileText className="h-4 w-4 text-gray-500" aria-hidden="true" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold border-b pb-4 mb-4">Manage Posts</div>
@@ -28,7 +28,7 @@ const AdminDashboard = () => {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Resources</CardTitle>
-            <FolderPlus className="h-4 w-4 text-gray-500" />
+            <FolderPlus className="h-4 w-4 text-gray-500" aria-hidden="true" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold border-b pb-4 mb-4">Manage Files</div>

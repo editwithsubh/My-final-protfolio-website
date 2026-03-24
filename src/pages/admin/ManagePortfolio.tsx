@@ -11,7 +11,7 @@ import { toast } from 'sonner';
 import { format } from 'date-fns';
 import { Trash2 } from 'lucide-react';
 
-const CATEGORIES = ['All', 'Web Development', 'Mobile App', 'UI/UX Design', 'Other'];
+const CATEGORIES = ['All', 'YouTube', 'Short-Form', 'Motion Graphics', 'Ads & Commercials', 'Color Grading', 'Brand Films'];
 
 const ManagePortfolio = () => {
   const [videos, setVideos] = useState<any[]>([]);

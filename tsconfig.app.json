@@ -12,9 +12,8 @@
     "moduleDetection": "force",
     "moduleResolution": "bundler",
     "noEmit": true,
-    "noFallthroughCasesInSwitch": false,
-    "noImplicitAny": false,
-    "noUnusedLocals": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": false,    "noUnusedLocals": false,
     "noUnusedParameters": false,
     "paths": {
       "@/*": [

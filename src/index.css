@@ -107,7 +107,7 @@
 
   /* Yellow highlighter effect */
   .highlight-word {
-    background: linear-gradient(transparent 55%, hsl(var(--yellow-highlight) / 0.6) 45%);
+    background: linear-gradient(transparent 60%, hsl(var(--yellow-highlight) / 0.6) 60%);
     padding: 0 4px;
   }
 

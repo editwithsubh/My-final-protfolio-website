@@ -1,6 +1,6 @@
 import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/animations/ScrollReveal";
 import { Mail, Instagram, Twitter, Send, Clock, MapPin, MessageCircle } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const Contact = () => {
@@ -12,12 +12,27 @@ const Contact = () => {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const timeoutRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current !== null) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
     setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    if (timeoutRef.current !== null) {
+      clearTimeout(timeoutRef.current);
+    }
+    timeoutRef.current = window.setTimeout(() => {
+      setSubmitted(false);
+      timeoutRef.current = null;
+    }, 3000);
   };
 
   return (
@@ -203,8 +218,7 @@ const Contact = () => {
                     I'm Shubham — a video editor & motion designer helping creators and brands craft cinematic stories. With 3+ years of editing experience, I specialize in YouTube content, brand films, and social media visuals.
                   </p>
                   <div className="flex flex-wrap gap-2">
-                    {["Premiere Pro", "After Effect", "DaVinci Resolve", "Photoshop"].map((tool) => (
-                      <span
+                    {["Premiere Pro", "After Effects", "DaVinci Resolve", "Photoshop"].map((tool) => (                      <span
                         key={tool}
                         className="px-3 py-1 rounded-full bg-dark-gray/50 text-mid-gray text-xs font-body"
                       >

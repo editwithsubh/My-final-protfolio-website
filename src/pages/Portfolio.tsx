@@ -5,29 +5,38 @@ import { supabase } from "@/integrations/supabase/client";
 import { getYouTubeThumbnail } from "@/lib/youtube";
 import VideoModal from "@/components/video/VideoModal";
 
-const CATEGORIES = ['All', 'Web Development', 'Mobile App', 'UI/UX Design', 'Other'];
+const CATEGORIES = ['All', 'YouTube', 'Short-Form', 'Motion Graphics', 'Ads & Commercials', 'Color Grading', 'Brand Films'];
 
 const Portfolio = () => {
   const [videos, setVideos] = useState<any[]>([]);
   const [activeCategory, setActiveCategory] = useState("All");
   const [loading, setLoading] = useState(true);
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchVideos();
-  }, []);
+    let isMounted = true;
 
-  const fetchVideos = async () => {
-    const { data, error } = await supabase
-      .from('portfolio_videos')
-      .select('*')
-      .order('created_at', { ascending: false });
-      
-    if (!error && data) {
-      setVideos(data);
-    }
-    setLoading(false);
-  };
+    const fetchVideos = async () => {
+      const { data, error } = await supabase
+        .from('portfolio_videos')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (!isMounted) return;
+
+      if (error) {
+        console.error('Error fetching videos:', error);
+        setError('Failed to load portfolio videos.');
+      } else if (data) {
+        setVideos(data);
+      }
+      setLoading(false);
+    };
+
+    fetchVideos();
+    return () => { isMounted = false; };
+  }, []);
 
   const filteredVideos = activeCategory === "All" 
     ? videos 
@@ -72,6 +81,8 @@ const Portfolio = () => {
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-[120px]">
           {loading ? (
             <div className="text-center text-mid-gray py-20">Loading portfolio...</div>
+          ) : error ? (
+            <div className="text-center text-red-400 py-20">{error}</div>
           ) : filteredVideos.length === 0 ? (
             <div className="text-center text-mid-gray py-20">
               No videos found for this category.

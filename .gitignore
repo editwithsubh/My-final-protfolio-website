@@ -8,6 +8,16 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+
+# Environment variables
+.env
+.env*.local
+server/.env
+
+# Test coverage
+coverage
+.nyc_output
+
 dist
 dist-ssr
 *.local

@@ -58,31 +58,31 @@ const Blog = () => {
             <div className="text-center py-20 text-gray-500">No blog posts found.</div>
           ) : (
             <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.1}>
-              {posts.map((post, i) => (
-                <StaggerItem key={post.id}>
-                  <Link to={`/blog/${post.slug}`} className="group h-full flex flex-col">
-                    {/* Thumbnail placeholder */}
-                    <div className="aspect-video bg-near-black rounded-xl overflow-hidden relative">
-                      <div className="absolute inset-0 grid-paper opacity-10" />
-                      {post.is_paid && (
-                        <span className="absolute top-3 left-3 px-3 py-1 bg-brutal-yellow text-foreground border-2 border-foreground shadow-[2px_2px_0px_0px_hsl(var(--foreground))] text-xs font-bold uppercase rounded z-10">
-                          Premium
-                        </span>
-                      )}
-                      <div className="absolute bottom-3 right-3 flex items-center gap-1 text-off-white/70 text-xs font-mono">
-                        <Clock size={12} /> {getReadTime(post.content || "")}
-                      </div>
+            {posts.map((post, i) => (
+              <StaggerItem key={post.title}>
+                <Link to={`/blog/${post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} className="group cursor-pointer h-full flex flex-col">
+                  {/* Thumbnail placeholder */}
+                  <div className="aspect-video bg-near-black rounded-xl overflow-hidden relative">
+                    <div className="absolute inset-0 grid-paper opacity-10" />
+                    <span className="absolute top-3 left-3 px-3 py-1 bg-orange text-primary-foreground text-xs font-mono uppercase rounded">
+                      {post.category}
+                    </span>
+                    <div className="absolute bottom-3 right-3 flex items-center gap-1 text-off-white/70 text-xs font-mono">
+                      <Clock size={12} /> {post.readTime}
                     </div>
-                    <div className="mt-4 flex-1 flex flex-col">
-                      <h3 className="font-heading font-bold text-base text-deep-black group-hover:text-orange transition-colors">
-                        {post.title}
-                      </h3>
-                      <p className="font-body text-sm text-mid-gray mt-2 leading-relaxed flex-1">
-                        {extractExcerpt(post.content || "")}
-                      </p>
-                      <span className="inline-flex items-center gap-1 mt-3 text-orange text-sm font-heading font-semibold group-hover:gap-2 transition-all">
-                        Read Article <ArrowRight size={14} />
-                      </span>
+                  </div>
+                  <div className="mt-4 flex-1 flex flex-col">
+                    <h3 className="font-heading font-bold text-base text-deep-black group-hover:text-orange transition-colors">
+                      {post.title}
+                    </h3>
+                    <p className="font-body text-sm text-mid-gray mt-2 leading-relaxed flex-1">{post.excerpt}</p>
+                    <span className="inline-flex items-center gap-1 mt-3 text-orange text-sm font-heading font-semibold group-hover:gap-2 transition-all">
+                      Read More <ArrowRight size={14} />
+                    </span>
+                  </div>
+                </Link>
+              </StaggerItem>
+            ))}
                     </div>
                   </Link>
                 </StaggerItem>
