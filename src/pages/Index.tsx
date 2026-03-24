@@ -280,7 +280,6 @@ const tools = [
   { name: "Adobe Premiere Pro", level: 95 },
   { name: "After Effects", level: 90 },
   { name: "DaVinci Resolve", level: 88 },
-  { name: "After Effect", level: 90 },
   { name: "Canva", level: 85 },
   { name: "Filmora", level: 82 },
 ];
@@ -324,7 +323,7 @@ const resources = [
   { title: "Free LUTs Pack for Cinematic Edits", category: "Free Assets", type: "Download" },
   { title: "YouTube Editing Workflow Guide", category: "Editing Guides", type: "Guide" },
   { title: "Top 10 AI Tools for Video Editors", category: "AI Tools", type: "Article" },
-  { title: "After Effect Templates Collection", category: "Free Assets", type: "Download" },
+  { title: "After Effects Templates Collection", category: "Free Assets", type: "Download" },
 ];
 
 const ResourcesPreview = () => (

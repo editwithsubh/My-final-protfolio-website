@@ -17,6 +17,8 @@ const MyLibrary = () => {
   useEffect(() => {
     if (user) {
       fetchLibrary();
+    } else {
+      setLoading(false);
     }
   }, [user]);
 

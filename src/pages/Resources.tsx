@@ -89,21 +89,23 @@ const Resources = () => {
               </button>
             ))}
           </div>
-          <div className="flex gap-3 overflow-x-auto pb-1">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat as string)}
-                className={`px-5 py-2 rounded-full text-sm font-heading font-semibold whitespace-nowrap transition-all ${
-                  activeCategory === cat
-                    ? "bg-orange text-primary-foreground"
-                    : "border border-dark-gray text-mid-gray hover:border-orange hover:text-orange"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+          {categories.length > 1 && (
+            <div className="flex gap-3 overflow-x-auto pb-1">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat as string)}
+                  className={`px-5 py-2 rounded-full text-sm font-heading font-semibold whitespace-nowrap transition-all ${
+                    activeCategory === cat
+                      ? "bg-orange text-primary-foreground"
+                      : "border border-dark-gray text-mid-gray hover:border-orange hover:text-orange"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 

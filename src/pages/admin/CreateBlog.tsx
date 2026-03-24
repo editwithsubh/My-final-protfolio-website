@@ -114,11 +114,12 @@ const CreateBlog = () => {
           <div className="flex items-center justify-between w-full max-w-sm">
             <div className="space-y-0.5">
               <Label htmlFor="paid-toggle" className="text-base">Paid Content</Label>
-              <p className="text-sm text-gray-500">Require payment to view full post.</p>
+              <p className="text-sm text-gray-500">Require payment to view full post. <span className="text-gray-400">(defaults to Free)</span></p>
             </div>
             <Switch
               id="paid-toggle"
               checked={isPaid}
+              defaultChecked={false}
               onCheckedChange={setIsPaid}
             />
           </div>

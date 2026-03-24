@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { FileText, FolderPlus } from 'lucide-react';
+import { FileText, FolderPlus, Video } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const AdminDashboard = () => {
@@ -34,6 +34,19 @@ const AdminDashboard = () => {
             <div className="text-2xl font-bold border-b pb-4 mb-4">Manage Files</div>
             <Link to="/admin/resources" className="text-sm text-blue-600 hover:underline">
               View all resources &rarr;
+            </Link>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium">Portfolio</CardTitle>
+            <Video className="h-4 w-4 text-gray-500" aria-hidden="true" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold border-b pb-4 mb-4">Manage Videos</div>
+            <Link to="/admin/portfolio" className="text-sm text-blue-600 hover:underline">
+              View all videos &rarr;
             </Link>
           </CardContent>
         </Card>

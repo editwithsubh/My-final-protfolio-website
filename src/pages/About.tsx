@@ -74,8 +74,17 @@ const About = () => {
               <ScrollReveal direction="left">
                 <div className="border-4 border-deep-black bg-white p-2 shadow-[8px_8px_0px_#111] rotate-2 transition-transform hover:rotate-0">
                   <div className="aspect-[3/4] bg-light-gray relative flex items-center justify-center overflow-hidden">
-                    {/* Placeholder for real image */}
-                    <User size={100} className="text-mid-gray/50" />
+                    <img
+                      src="/images/shubham-profile.jpg"
+                      alt="Shubham Sharma — Video Editor"
+                      className="w-full h-full object-cover object-top"
+                      onError={(e) => {
+                        // Fallback to placeholder if image not found
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        target.parentElement!.innerHTML += '<div class="flex items-center justify-center w-full h-full"><span class="text-mid-gray/50 text-6xl">📸</span></div>';
+                      }}
+                    />
                     
                     {/* Decorative bits */}
                     <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-brutal-yellow rotate-12 border-2 border-deep-black"></div>

@@ -254,10 +254,10 @@ const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
                     type="file"
                     className="hidden"
                     onChange={handleFileUpload}
-                    accept={type === 'PDF' ? '.pdf' : '*/*'}
+                    accept={type === 'PDF' ? '.pdf' : '.zip,.cube,.3dl,.mogrt,.prproj,.mp4,.mov,.lut'}
                   />
                   <p className="text-sm text-gray-500 mt-2">
-                    {file ? file.name : `SVG, PNG, JPG, PDF or GIF (max. 10MB)`}
+                    {file ? file.name : type === 'PDF' ? 'PDF files only (max. 50MB)' : 'ZIP, .cube, .3dl, .mogrt, .prproj, MP4 (max. 500MB)'}
                   </p>
                 </div>
               </div>
