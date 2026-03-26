@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Play, ArrowRight, Instagram, Twitter, Youtube } from "lucide-react";
 import { motion } from "framer-motion";
 import Marquee from "@/components/layout/Marquee";
+import TestimonialsSection from "@/components/layout/TestimonialsSection";
 import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/animations/ScrollReveal";
 
 /* ─── HERO SECTION ─── */
@@ -102,45 +103,105 @@ const HeroSection = () => (
   </section>
 );
 
-/* ─── MINI ABOUT SECTION ─── */
+/* ─── MINI ABOUT SECTION (Redesigned matching reference) ─── */
 const AboutSnippet = () => (
-  <section className="section-dark py-20 md:py-28">
+  <section className="bg-[#EAEAEA] py-20 md:py-28 relative overflow-hidden">
+    {/* Right Edge Vertical Label */}
+    <div className="absolute right-4 top-1/2 -translate-y-1/2 transform rotate-90 origin-right text-xs font-mono tracking-[0.2em] text-deep-black/60 hidden lg:block">
+      SHUBHAM © 2025
+    </div>
+
     <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-[120px]">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <ScrollReveal direction="left">
-          <div className="space-y-5">
-            <p className="font-handwritten text-lg text-orange">a little about me</p>
-            <h2 className="font-display text-4xl md:text-5xl text-off-white tracking-wider leading-[1.05]">
-              STORIES TOLD<br />THROUGH <span className="highlight-orange">EDITS</span>
-            </h2>
-            <p className="font-body text-off-white/70 leading-relaxed max-w-md">
-              I'm Shubham — a video editor & motion designer with 3+ years of experience crafting cinematic content for creators and brands. I believe every cut, transition, and frame should serve the story.
-            </p>
-            <Link
-              to="/about"
-              className="inline-flex items-center gap-2 text-orange font-heading font-semibold text-sm hover:gap-4 transition-all duration-300"
-            >
-              More About Me <ArrowRight size={16} />
-            </Link>
+      {/* Top Header line */}
+      <div className="flex items-center gap-4 mb-16 md:mb-24">
+        <h2 className="font-heading font-black text-xl md:text-2xl text-deep-black uppercase tracking-wide">
+          About
+        </h2>
+        <div className="flex-1 h-[2px] bg-deep-black"></div>
+        <div className="w-10 h-10 rounded-full border-2 border-deep-black flex items-center justify-center shrink-0 hover:bg-deep-black hover:text-white transition-colors cursor-default">
+          <ArrowRight size={20} strokeWidth={2.5} />
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        {/* Left Side: Photo & Blob */}
+        <ScrollReveal direction="left" className="relative group mx-auto lg:mx-0 max-w-md w-full">
+          {/* Yellow Shape Background */}
+          <div className="absolute bottom-0 left-0 w-full h-[65%] bg-[#F3C623] rounded-3xl rounded-tl-none -z-10 transition-transform duration-500 group-hover:scale-[1.02]"></div>
+          
+          {/* Main Photo Placeholder (Using gradient/noise for now, or you can replace with real image) */}
+          <div className="relative w-full aspect-[3/4] overflow-hidden rounded-b-3xl">
+            {/* The actual image goes here. Grayscale filter to match reference aesthetic */}
+            <img 
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop" 
+              alt="Shubham" 
+              className="w-full h-full object-cover object-bottom grayscale scale-[1.02] group-hover:grayscale-0 transition-all duration-700"
+            />
           </div>
         </ScrollReveal>
 
-        <ScrollReveal direction="right">
-          <StaggerContainer className="grid grid-cols-2 gap-4" staggerDelay={0.1}>
-            {[
-              { number: "3+", label: "Years Editing" },
-              { number: "120+", label: "Projects Delivered" },
-              { number: "45+", label: "Happy Clients" },
-              { number: "1M+", label: "Views Generated" },
-            ].map((stat) => (
-              <StaggerItem key={stat.label}>
-                <div className="bg-near-black border border-dark-gray rounded-xl p-5 text-center hover:border-orange/30 transition-colors duration-300">
-                  <p className="font-display text-3xl md:text-4xl text-orange">{stat.number}</p>
-                  <p className="font-body text-mid-gray text-xs mt-1">{stat.label}</p>
+        {/* Right Side: Text & Content */}
+        <ScrollReveal direction="right" className="space-y-8">
+          {/* "HELLO." Heading with quotes */}
+          <div className="relative inline-block mb-2">
+            <span className="absolute -top-4 -left-8 font-display text-[#F3C623] text-6xl leading-none">
+              "
+            </span>
+            <h3 className="font-heading font-black text-5xl md:text-[64px] text-deep-black tracking-widest uppercase transform -rotate-3 leading-none">
+              HELLO.
+            </h3>
+          </div>
+
+          <div className="space-y-6 font-body text-deep-black/80 text-[15px] md:text-base leading-relaxed">
+            <p>
+              I'm <strong className="text-deep-black font-bold">Shubham Sharma</strong>, a self-taught video editor & motion graphics specialist with over 3 years of experience. I love creating visuals that don't just look good - they tell a story. From social media content to high-end commercials, I enjoy bringing ideas to life.
+            </p>
+            <p>
+              I also explore different editing styles and visual effects to add more depth to my work. For me, editing is all about connecting ideas with people in a creative, retention-driven way.
+            </p>
+          </div>
+
+          {/* Software Skills Section */}
+          <div className="pt-4">
+            <div className="inline-block relative mb-6">
+              <h4 className="font-heading font-bold text-xl text-deep-black tracking-wide">
+                Software Skill
+              </h4>
+              <div className="absolute -bottom-2 left-0 w-full h-[3px] bg-[#F3C623]" />
+            </div>
+
+            {/* Icons Grid */}
+            <div className="grid grid-cols-4 sm:grid-cols-5 gap-3 max-w-sm">
+              {[
+                { name: "Pr", color: "bg-[#00005C]", text: "text-[#E88AFF]" }, // Premiere
+                { name: "Ai", color: "bg-[#330000]", text: "text-[#FF9A00]" }, // Illustrator
+                { name: "Ps", color: "bg-[#001D34]", text: "text-[#31A8FF]" }, // Photoshop
+                { name: "Lr", color: "bg-[#000000]", text: "text-[#31A8FF]" }, // Lightroom
+                { name: "Ca", color: "bg-gradient-to-br from-[#00D2FF] to-[#3A7BD5]", text: "text-white text-xs", icon: "Canva" }, 
+                { name: "Cp", color: "bg-black", text: "text-white text-xs", icon: "CapCut" }, 
+                { name: "Vs", color: "bg-[#0066B8]", text: "text-white" }, // VS Code
+                { name: "Fg", color: "bg-[#2C2D33]", text: "text-white text-xs", icon: "Figma" }, 
+              ].map((skill, i) => (
+                <div 
+                  key={i} 
+                  className={`aspect-square rounded-xl ${skill.color} ${skill.text} flex flex-col items-center justify-center font-bold text-sm md:text-lg shadow-sm hover:-translate-y-1 transition-transform cursor-help`}
+                  title={skill.name}
+                >
+                  {skill.icon ? <span className="text-[10px] md:text-xs px-1">{skill.icon}</span> : skill.name}
                 </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+              ))}
+            </div>
+          </div>
+
+          {/* Visit About Link */}
+          <div className="pt-8">
+            <Link
+              to="/about"
+              className="inline-flex items-center gap-2 px-8 py-3 bg-[#F3C623] text-deep-black font-heading font-black text-sm uppercase tracking-widest rounded-full hover:bg-deep-black hover:text-[#F3C623] transition-all duration-300 shadow-[0_4px_14px_rgba(243,198,35,0.4)]"
+            >
+              Visit About <ArrowRight size={16} strokeWidth={3} />
+            </Link>
+          </div>
         </ScrollReveal>
       </div>
     </div>
@@ -442,6 +503,7 @@ const Index = () => {
       <ToolsSection />
       <ResourcesPreview />
       <ProductsPreview />
+      <TestimonialsSection />
       <FinalCTA />
     </>
   );
