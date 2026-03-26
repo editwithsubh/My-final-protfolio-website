@@ -105,7 +105,7 @@ const HeroSection = () => (
 
 /* ─── MINI ABOUT SECTION (Redesigned matching reference) ─── */
 const AboutSnippet = () => (
-  <section className="bg-[#EAEAEA] py-20 md:py-28 relative overflow-hidden">
+  <section className="bg-[#EAEAEA] py-16 md:py-20 relative overflow-hidden">
     {/* Right Edge Vertical Label */}
     <div className="absolute right-4 top-1/2 -translate-y-1/2 transform rotate-90 origin-right text-xs font-mono tracking-[0.2em] text-deep-black/60 hidden lg:block">
       SHUBHAM © 2025
@@ -113,8 +113,8 @@ const AboutSnippet = () => (
 
     <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-[120px]">
       {/* Top Header line */}
-      <div className="flex items-center gap-4 mb-16 md:mb-24">
-        <h2 className="font-heading font-black text-xl md:text-2xl text-deep-black uppercase tracking-wide">
+      <div className="flex items-center gap-4 mb-12 md:mb-16">
+        <h2 className="font-heading font-black text-lg md:text-xl text-deep-black uppercase tracking-wide">
           About
         </h2>
         <div className="flex-1 h-[2px] bg-deep-black"></div>
@@ -123,9 +123,9 @@ const AboutSnippet = () => (
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
         {/* Left Side: Photo & Blob */}
-        <ScrollReveal direction="left" className="relative group mx-auto lg:mx-0 max-w-md w-full">
+        <ScrollReveal direction="left" className="relative group mx-auto lg:mx-0 max-w-sm w-full">
           {/* Yellow Shape Background */}
           <div className="absolute bottom-0 left-0 w-full h-[65%] bg-[#F3C623] rounded-3xl rounded-tl-none -z-10 transition-transform duration-500 group-hover:scale-[1.02]"></div>
           
@@ -141,18 +141,18 @@ const AboutSnippet = () => (
         </ScrollReveal>
 
         {/* Right Side: Text & Content */}
-        <ScrollReveal direction="right" className="space-y-8">
+        <ScrollReveal direction="right" className="space-y-6">
           {/* "HELLO." Heading with quotes */}
-          <div className="relative inline-block mb-2">
-            <span className="absolute -top-4 -left-8 font-display text-[#F3C623] text-6xl leading-none">
+          <div className="relative inline-block mb-1">
+            <span className="absolute -top-3 -left-6 font-display text-[#F3C623] text-5xl leading-none">
               "
             </span>
-            <h3 className="font-heading font-black text-5xl md:text-[64px] text-deep-black tracking-widest uppercase transform -rotate-3 leading-none">
+            <h3 className="font-heading font-black text-4xl md:text-5xl text-deep-black tracking-widest uppercase transform -rotate-3 leading-none">
               HELLO.
             </h3>
           </div>
 
-          <div className="space-y-6 font-body text-deep-black/80 text-[15px] md:text-base leading-relaxed">
+          <div className="space-y-4 font-body text-deep-black/80 text-sm md:text-[15px] leading-relaxed">
             <p>
               I'm <strong className="text-deep-black font-bold">Shubham Sharma</strong>, a self-taught video editor & motion graphics specialist with over 3 years of experience. I love creating visuals that don't just look good - they tell a story. From social media content to high-end commercials, I enjoy bringing ideas to life.
             </p>
@@ -162,16 +162,16 @@ const AboutSnippet = () => (
           </div>
 
           {/* Software Skills Section */}
-          <div className="pt-4">
-            <div className="inline-block relative mb-6">
-              <h4 className="font-heading font-bold text-xl text-deep-black tracking-wide">
+          <div className="pt-2">
+            <div className="inline-block relative mb-4">
+              <h4 className="font-heading font-bold text-lg text-deep-black tracking-wide">
                 Software Skill
               </h4>
-              <div className="absolute -bottom-2 left-0 w-full h-[3px] bg-[#F3C623]" />
+              <div className="absolute -bottom-1 left-0 w-full h-[2px] bg-[#F3C623]" />
             </div>
 
             {/* Icons Grid */}
-            <div className="grid grid-cols-4 sm:grid-cols-5 gap-3 max-w-sm">
+            <div className="grid grid-cols-4 sm:grid-cols-5 gap-2.5 max-w-sm">
               {[
                 { name: "Pr", color: "bg-[#00005C]", text: "text-[#E88AFF]" }, // Premiere
                 { name: "Ai", color: "bg-[#330000]", text: "text-[#FF9A00]" }, // Illustrator
@@ -184,7 +184,7 @@ const AboutSnippet = () => (
               ].map((skill, i) => (
                 <div 
                   key={i} 
-                  className={`aspect-square rounded-xl ${skill.color} ${skill.text} flex flex-col items-center justify-center font-bold text-sm md:text-lg shadow-sm hover:-translate-y-1 transition-transform cursor-help`}
+                  className={`aspect-square rounded-lg ${skill.color} ${skill.text} flex flex-col items-center justify-center font-bold text-sm md:text-base shadow-sm hover:-translate-y-1 transition-transform cursor-help`}
                   title={skill.name}
                 >
                   {skill.icon ? <span className="text-[10px] md:text-xs px-1">{skill.icon}</span> : skill.name}
@@ -194,10 +194,10 @@ const AboutSnippet = () => (
           </div>
 
           {/* Visit About Link */}
-          <div className="pt-8">
+          <div className="pt-6">
             <Link
               to="/about"
-              className="inline-flex items-center gap-2 px-8 py-3 bg-[#F3C623] text-deep-black font-heading font-black text-sm uppercase tracking-widest rounded-full hover:bg-deep-black hover:text-[#F3C623] transition-all duration-300 shadow-[0_4px_14px_rgba(243,198,35,0.4)]"
+              className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#F3C623] text-deep-black font-heading font-black text-xs md:text-sm uppercase tracking-widest rounded-full hover:bg-deep-black hover:text-[#F3C623] transition-all duration-300 shadow-[0_4px_14px_rgba(243,198,35,0.4)]"
             >
               Visit About <ArrowRight size={16} strokeWidth={3} />
             </Link>

@@ -55,17 +55,17 @@ export default function TestimonialsSection() {
   }, [api]);
 
   return (
-    <section className="section-light py-24 md:py-32 bg-[#FCFAF5]">
+    <section className="section-light py-16 md:py-20 bg-[#FCFAF5]">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-[120px]">
         <ScrollReveal>
-          <div className="text-center mb-16">
-            <h2 className="font-display text-5xl md:text-6xl text-deep-black tracking-wider">
+          <div className="text-center mb-12">
+            <h2 className="font-display text-4xl md:text-5xl text-deep-black tracking-wider">
               Testimonials
             </h2>
           </div>
         </ScrollReveal>
 
-        <div className="relative mx-auto w-full max-w-[1100px]">
+        <div className="relative mx-auto w-full max-w-[900px]">
           <Carousel
             setApi={setApi}
             opts={{
@@ -85,25 +85,25 @@ export default function TestimonialsSection() {
             </CarouselContent>
 
             {/* Custom Navigation */}
-            <div className="flex items-center justify-center gap-6 mt-16 pb-4">
+            <div className="flex items-center justify-center gap-4 mt-10 pb-2">
               <button
                 onClick={() => api?.scrollPrev()}
-                className="w-12 h-12 rounded-full bg-deep-black text-white flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-300 shadow-md"
+                className="w-10 h-10 rounded-full bg-deep-black text-white flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-300 shadow-md"
                 aria-label="Previous testimonial"
               >
-                <ChevronLeft size={24} strokeWidth={2.5} />
+                <ChevronLeft size={20} strokeWidth={2.5} />
               </button>
               
-              <div className="font-heading font-bold text-[15px] text-deep-black/60 tracking-[0.15em] uppercase w-24 text-center">
+              <div className="font-heading font-bold text-sm text-deep-black/60 tracking-[0.15em] uppercase w-20 text-center">
                 {current} OF {count}
               </div>
               
               <button
                 onClick={() => api?.scrollNext()}
-                className="w-12 h-12 rounded-full bg-deep-black text-white flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-300 shadow-md"
+                className="w-10 h-10 rounded-full bg-deep-black text-white flex items-center justify-center hover:scale-105 active:scale-95 transition-all duration-300 shadow-md"
                 aria-label="Next testimonial"
               >
-                <ChevronRight size={24} strokeWidth={2.5} />
+                <ChevronRight size={20} strokeWidth={2.5} />
               </button>
             </div>
           </Carousel>
