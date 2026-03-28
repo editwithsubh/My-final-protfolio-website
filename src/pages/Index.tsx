@@ -74,7 +74,7 @@ const HeroSection = () => (
           </div>
         </motion.div>
 
-        {/* Right — Showreel blob */}
+        {/* Right — Profile Photo Blob */}
         <motion.div
           className="lg:col-span-2 flex justify-center lg:justify-end"
           initial={{ opacity: 0, scale: 0.9 }}
@@ -82,20 +82,23 @@ const HeroSection = () => (
           transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
         >
           <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96">
-            {/* Blob background */}
-            <div className="absolute inset-0 bg-orange rounded-[40%_60%_70%_30%/40%_50%_60%_50%] animate-blob opacity-90" />
+            {/* Blob background / outline */}
+            <div className="absolute inset-0 bg-orange rounded-[40%_60%_70%_30%/40%_50%_60%_50%] animate-blob opacity-90 shadow-xl" />
             {/* Inner content */}
-            <div className="absolute inset-4 bg-near-black rounded-[40%_60%_70%_30%/40%_50%_60%_50%] flex items-center justify-center overflow-hidden">
-              <div className="text-center">
-                <div className="w-16 h-16 rounded-full bg-orange flex items-center justify-center mx-auto mb-3 hover:scale-110 transition-transform cursor-pointer">
-                  <Play size={24} fill="white" className="text-primary-foreground ml-1" />
-                </div>
-                <p className="font-handwritten text-off-white text-lg">Watch Showreel</p>
-              </div>
+            <div className="absolute inset-2 sm:inset-3 bg-near-black rounded-[40%_60%_70%_30%/40%_50%_60%_50%] flex items-center justify-center overflow-hidden">
+              <img 
+                src="/hero-shubham.jpg" 
+                alt="Shubham Sharma" 
+                className="w-full h-full object-cover object-center" 
+              />
+            </div>
+            {/* Floating Showreel Button Overlay */}
+            <div className="absolute bottom-4 -right-2 z-10 w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-deep-black flex items-center justify-center shadow-2xl hover:bg-orange hover:scale-110 transition-all duration-300 cursor-pointer border-4 border-[#F3C623] group">
+              <Play size={24} className="text-off-white group-hover:text-deep-black group-hover:fill-deep-black ml-1 transition-colors" />
             </div>
             {/* Masking tape decorations */}
-            <div className="absolute -top-3 -right-3 w-20 h-7 bg-off-white/70 rotate-[5deg] shadow-sm" />
-            <div className="absolute -bottom-3 -left-3 w-20 h-7 bg-yellow-highlight/50 -rotate-[3deg] shadow-sm" />
+            <div className="absolute -top-3 -right-3 w-20 h-7 bg-off-white/70 rotate-[5deg] shadow-sm z-10" />
+            <div className="absolute -bottom-3 -left-3 w-20 h-7 bg-yellow-highlight/50 -rotate-[3deg] shadow-sm z-10" />
           </div>
         </motion.div>
       </div>
@@ -129,13 +132,13 @@ const AboutSnippet = () => (
           {/* Yellow Shape Background */}
           <div className="absolute bottom-0 left-0 w-full h-[65%] bg-[#F3C623] rounded-3xl rounded-tl-none -z-10 transition-transform duration-500 group-hover:scale-[1.02]"></div>
           
-          {/* Main Photo Placeholder (Using gradient/noise for now, or you can replace with real image) */}
-          <div className="relative w-full aspect-[3/4] overflow-hidden rounded-b-3xl">
-            {/* The actual image goes here. Grayscale filter to match reference aesthetic */}
+          {/* Main Photo Container */}
+          <div className="relative w-full aspect-[3/4] overflow-hidden rounded-b-3xl bg-transparent">
+            {/* The actual image goes here */}
             <img 
-              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop" 
+              src="/about-shubham.png" 
               alt="Shubham" 
-              className="w-full h-full object-cover object-bottom grayscale scale-[1.02] group-hover:grayscale-0 transition-all duration-700"
+              className="w-full h-full object-cover object-center scale-[1.02] hover:scale-[1.05] transition-all duration-700"
             />
           </div>
         </ScrollReveal>
