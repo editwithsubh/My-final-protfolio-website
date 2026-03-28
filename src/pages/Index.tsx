@@ -128,7 +128,7 @@ const AboutSnippet = () => (
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
         {/* Left Side: Photo & Blob */}
-        <ScrollReveal direction="left" className="relative group mx-auto lg:mx-0 max-w-sm w-full">
+        <ScrollReveal direction="left" className="relative group mx-auto lg:mx-0 max-w-sm w-full mb-10 lg:mb-0">
           {/* Yellow Shape Background */}
           <div className="absolute bottom-0 left-0 w-full h-[65%] bg-[#F3C623] rounded-3xl rounded-tl-none -z-10 transition-transform duration-500 group-hover:scale-[1.02]"></div>
           
@@ -137,8 +137,17 @@ const AboutSnippet = () => (
             {/* The actual image goes here */}
             <img 
               src="/about-shubham.png" 
-              alt="Shubham" 
+              alt="Shubham Hire Vedio Editor" 
               className="w-full h-full object-cover object-center scale-[1.02] hover:scale-[1.05] transition-all duration-700"
+            />
+          </div>
+
+          {/* Secondary Photo Container */}
+          <div className="absolute -bottom-6 -right-4 sm:-right-8 w-32 h-32 md:w-40 md:h-40 rounded-2xl border-4 border-[#EAEAEA] bg-near-black overflow-hidden shadow-2xl z-10 transition-transform duration-500 transform rotate-3 hover:rotate-0 hover:scale-105 group-hover:rotate-6">
+            <img 
+              src="/about-shubham-2.jpg" 
+              alt="Shubham Portrait" 
+              className="w-full h-full object-cover object-center grayscale hover:grayscale-0 transition-all duration-500"
             />
           </div>
         </ScrollReveal>
