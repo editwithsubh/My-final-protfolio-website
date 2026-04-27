@@ -1,0 +1,108 @@
+import { useEffect, useState } from "react";
+import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/animations/ScrollReveal";
+import { Link } from "react-router-dom";
+import { Clock, ArrowRight } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+
+// Simple utility to strip HTML and truncate for excerpts
+const extractExcerpt = (htmlContent: string) => {
+  const tmp = document.createElement("DIV");
+  tmp.innerHTML = htmlContent;
+  const text = tmp.textContent || tmp.innerText || "";
+  return text.substring(0, 150) + "...";
+};
+
+const getReadTime = (htmlContent: string) => {
+  const plainText = htmlContent.replace(/<[^>]+>/g, ' ').trim();
+  const words = plainText.split(/\s+/).filter(Boolean).length;
+  const time = Math.max(1, Math.ceil(words / 200));
+  return `${time} min`;
+};
+
+const Blog = () => {
+  const [posts, setPosts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      const { data, error: fetchError } = await supabase
+        .from("blogs")
+        .select("*")
+        .order("created_at", { ascending: false });
+      if (fetchError) {
+        console.error('Error fetching blogs:', fetchError);
+        setError('Failed to load blog posts. Please try again.');
+        setLoading(false);
+        return;
+      }
+      if (data) setPosts(data.filter((post) => post.status === 'published'));
+      setLoading(false);
+    };
+    fetchBlogs();
+  }, []);
+
+  return (
+    <>
+      {/* Hero */}
+      <section className="section-dark pt-32 pb-16">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-[120px]">
+          <ScrollReveal>
+            <p className="font-handwritten text-xl text-orange mb-2">thoughts & insights</p>
+            <h1 className="font-display text-6xl md:text-8xl text-off-white tracking-wider">BLOG</h1>
+            <p className="font-body text-mid-gray mt-4 max-w-lg">
+              Tips, tutorials, and insights from my latest production learnings.
+            </p>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Blog grid */}
+      <section className="section-light py-16 min-h-[50vh]">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-[120px]">
+          {loading ? (
+            <div className="text-center py-20 text-gray-500">Loading articles...</div>
+          ) : error ? (
+            <div className="text-center py-20 text-red-400">{error}</div>
+          ) : posts.length === 0 ? (
+            <div className="text-center py-20 text-gray-500">No blog posts found.</div>
+          ) : (
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" staggerDelay={0.1}>
+            {posts.map((post, i) => (
+              <StaggerItem key={post.id}>
+                <Link to={`/blog/${post.slug || post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} className="group cursor-pointer h-full flex flex-col">
+                  <div className="aspect-video bg-near-black rounded-xl overflow-hidden relative">
+                    {post.cover_image ? (
+                      <img src={post.cover_image} alt={post.title} className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="absolute inset-0 grid-paper opacity-10" />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-deep-black/80 via-deep-black/20 to-transparent" />
+                    <span className="absolute top-3 left-3 px-3 py-1 bg-orange text-primary-foreground text-xs font-mono uppercase rounded">
+                      {post.category || 'General'}
+                    </span>
+                    <div className="absolute bottom-3 right-3 flex items-center gap-1 text-off-white/70 text-xs font-mono">
+                      <Clock size={12} /> {post.reading_time ? `${post.reading_time} min` : getReadTime(post.content || '')}
+                    </div>
+                  </div>
+                  <div className="mt-4 flex-1 flex flex-col">
+                    <h3 className="font-heading font-bold text-base text-deep-black group-hover:text-orange transition-colors">
+                      {post.title}
+                    </h3>
+                    <p className="font-body text-sm text-mid-gray mt-2 leading-relaxed flex-1">{post.excerpt || extractExcerpt(post.content || '')}</p>
+                    <span className="inline-flex items-center gap-1 mt-3 text-orange text-sm font-heading font-semibold group-hover:gap-2 transition-all">
+                      Read More <ArrowRight size={14} />
+                    </span>
+                  </div>
+                </Link>
+              </StaggerItem>
+            ))}
+            </StaggerContainer>
+          )}
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default Blog;
